@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Little Steps is a calm, free website for people feeling low: a gentle garden game, breathing and grounding exercises, thought check, and crisis helplines in the Philippines and worldwide.">
+<meta name="theme-color" content="#e8eff0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Little Steps">
+<meta property="og:description" content="Little Steps is a calm, free website for people feeling low: a gentle garden game, breathing and grounding exercises, thought check, and crisis helplines in the Philippines and worldwide.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%232c7f84'/%3E%3Cpath d='M24 38V22' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3Cellipse cx='18' cy='25' rx='7' ry='4' transform='rotate(-30 18 25)' fill='%23fff'/%3E%3Cellipse cx='30' cy='20' rx='7' ry='4' transform='rotate(30 30 20)' fill='%23fff'/%3E%3C/svg%3E">
+<title>Little Steps</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{color-scheme:light}[hidden]{display:none!important}img{max-width:100%}
+
+/* Concept: dawn over still water. A drifting teal-and-peach hero with one slowly breathing orb, then soft, quiet sections that scroll like a single exhale. */
+:root{
+  --bg:#e8eff0; --surface:#f6faf9; --ink:#1b2a2e; --muted:#51666b; --line:#cfdcdd;
+  --accent:#2c7f84; --accent-ink:#ffffff; --accent-soft:#d9ecec;
+  --soil:#dbe4d8; --leaf:#4b8d62; --bloom:#d9738a; --core:#e8b84a;
+  --alert:#b3412f; --alert-bg:#fbeae5;
+  --sky1:#cfe6e7; --sky2:#f3ebe0; --wave1:rgba(44,127,132,.16); --wave2:rgba(44,127,132,.28);
+  --glow1:#8fd0cb; --glow2:#f6c9a8; --orb1:#e9fbf8; --orb2:#6fbcb8;
+  --nav:rgba(232,239,240,.82); --shadow:0 12px 36px rgba(32,70,74,.10);
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1819; --surface:#152325; --ink:#e3eeed; --muted:#93acab; --line:#264043;
+    --accent:#7ccfc8; --accent-ink:#0b1b1b; --accent-soft:#183336;
+    --soil:#1d3030; --leaf:#6fb585; --bloom:#f09ab0; --core:#f0c86a;
+    --alert:#ff9d8a; --alert-bg:#33211e;
+    --sky1:#0a1213; --sky2:#173236; --wave1:rgba(124,207,200,.08); --wave2:rgba(124,207,200,.14);
+    --glow1:#2a7075; --glow2:#7a5a58; --orb1:#bdf0ea; --orb2:#2d8a8c;
+    --nav:rgba(14,24,25,.8); --shadow:0 12px 36px rgba(0,0,0,.35);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1819; --surface:#152325; --ink:#e3eeed; --muted:#93acab; --line:#264043;
+  --accent:#7ccfc8; --accent-ink:#0b1b1b; --accent-soft:#183336;
+  --soil:#1d3030; --leaf:#6fb585; --bloom:#f09ab0; --core:#f0c86a;
+  --alert:#ff9d8a; --alert-bg:#33211e;
+  --sky1:#0a1213; --sky2:#173236; --wave1:rgba(124,207,200,.08); --wave2:rgba(124,207,200,.14);
+  --glow1:#2a7075; --glow2:#7a5a58; --orb1:#bdf0ea; --orb2:#2d8a8c;
+  --nav:rgba(14,24,25,.8); --shadow:0 12px 36px rgba(0,0,0,.35);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--body);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--nav);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-weight:300;font-size:clamp(2.4rem,7.5vw,4.4rem);line-height:1.05;letter-spacing:-.02em}
+h1 em,h2 em{font-style:italic;color:var(--accent)}
+h2{font-weight:500;font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.15;letter-spacing:-.015em}
+h3{font-weight:500;font-size:1.2rem;line-height:1.25}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--nav);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;padding-block:10px}
+.brand{font:500 1.25rem var(--display);background:none;border:0;color:var(--ink);cursor:pointer;padding:6px 0;margin-right:auto}
+.links{display:flex;gap:2px;order:3;width:100%;overflow-x:auto;scrollbar-width:none}
+.links::-webkit-scrollbar{display:none}
+.links button{font:500 .92rem var(--body);background:none;border:0;color:var(--muted);padding:8px 12px;border-radius:99px;cursor:pointer;white-space:nowrap;min-height:40px;transition:background .3s var(--ease),color .3s var(--ease)}
+.links button:hover{background:var(--accent-soft);color:var(--ink)}
+@media (min-width:820px){.links{order:0;width:auto}}
+
+/* buttons */
+.btn{font:700 .98rem var(--body);border:1.5px solid transparent;border-radius:99px;padding:12px 22px;min-height:46px;background:var(--accent);color:var(--accent-ink);cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn:active{transform:translateY(0)}
+.btn.line{background:transparent;color:var(--accent);border-color:var(--accent)}
+.btn.alert{background:var(--alert-bg);color:var(--alert);border-color:var(--alert)}
+.btn.sm{padding:8px 16px;min-height:40px;font-size:.9rem}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 100%);padding-block:56px 150px}
+.glow{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;pointer-events:none}
+.glow.a{width:460px;height:460px;background:var(--glow1);top:-140px;right:-100px;animation:drift 22s ease-in-out infinite alternate}
+.glow.b{width:380px;height:380px;background:var(--glow2);bottom:-60px;left:-120px;animation:drift 28s ease-in-out infinite alternate-reverse}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(-50px,40px) scale(1.15)}}
+.hero-in{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px;align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0;animation:rise 1.1s var(--ease) both}
+.hero-copy p.lead{font-size:1.15rem;color:var(--muted);max-width:34ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+@keyframes rise{from{transform:translateY(18px);opacity:.3}to{transform:none;opacity:1}}
+.orb-stage{display:grid;place-items:center;gap:20px;min-height:320px;animation:rise 1.4s var(--ease) both}
+.orb-core{position:relative;width:170px;height:170px;display:grid;place-items:center}
+.orb{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 30%,var(--orb1),var(--orb2) 72%);box-shadow:0 0 70px 14px var(--glow1),inset 0 0 30px rgba(255,255,255,.25)}
+.ring{position:absolute;inset:-26px;border-radius:50%;border:1.5px solid var(--accent);opacity:.35}
+.ring.r2{inset:-56px;opacity:.18}
+.breath-label{font:italic 300 1.7rem var(--display);color:var(--ink);min-height:1.4em;text-align:center}
+.waves{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:130px;display:block}
+.waves .w1{fill:var(--wave1)}
+.waves .w2{fill:var(--wave2)}
+.waves .w3{fill:var(--bg)}
+.waves .w1,.waves .w2{animation:sway 14s ease-in-out infinite alternate}
+.waves .w2{animation-duration:19s;animation-direction:alternate-reverse}
+@keyframes sway{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
+
+/* sections */
+section.sec{padding-block:72px 8px;scroll-margin-top:96px}
+.sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;max-width:56ch}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--shadow);min-width:0}
+.note{background:var(--accent-soft);border-radius:18px;padding:16px 18px}
+.stack{display:flex;flex-direction:column;gap:20px;min-width:0}
+
+/* garden */
+.plots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.plot{aspect-ratio:1;max-width:100%;background:var(--soil);border-radius:22px;display:grid;place-items:end center;padding:8px;overflow:hidden;position:relative;transition:background .6s var(--ease)}
+.plot::after{content:"";position:absolute;left:22%;right:22%;bottom:0;height:12%;background:var(--line);border-radius:60px 60px 0 0;opacity:.6}
+.plot svg{position:relative;z-index:1;width:88%;height:auto;display:block;transform-origin:50% 92%}
+.plot.grow svg{animation:grow 1s var(--ease)}
+@keyframes grow{from{transform:scale(.35);opacity:.2}to{transform:scale(1);opacity:1}}
+.stem{stroke:var(--leaf);stroke-width:2.5;fill:none;stroke-linecap:round}
+.leaf{fill:var(--leaf)}
+.petal{fill:var(--bloom)}
+.core{fill:var(--core)}
+.meter{height:8px;background:var(--soil);border-radius:99px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--leaf),var(--accent));border-radius:99px;transition:width .9s var(--ease)}
+.toast{min-height:1.6em;color:var(--accent);font-weight:700}
+.quest{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+.quest:first-child{border-top:0;padding-top:4px}
+.check{width:46px;height:46px;border-radius:50%;border:2px solid var(--accent);background:transparent;color:var(--accent-ink);font:700 1.2rem var(--body);cursor:pointer;transition:background .4s var(--ease),transform .4s var(--ease)}
+.check:hover{transform:scale(1.07)}
+.quest.done .check{background:var(--accent)}
+.quest.done .qt{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
+.qt{font-weight:500}
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.moods button{font:500 .84rem var(--body);padding:10px 2px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;min-height:46px;transition:background .3s var(--ease),border-color .3s var(--ease)}
+.moods button:hover{background:var(--accent-soft);border-color:var(--accent)}
+.mbars{display:flex;gap:8px;align-items:flex-end;height:96px}
+.mbar{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;font-size:.7rem;color:var(--muted)}
+.mbar i{display:block;width:100%;background:var(--accent);border-radius:8px 8px 0 0;opacity:.8;transition:height .6s var(--ease)}
+
+/* thoughts */
+.thought{font:italic 300 clamp(1.4rem,4vw,1.9rem)/1.3 var(--display)}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{font:inherit;text-align:left;padding:16px 18px;border-radius:18px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;min-height:48px;transition:border-color .4s var(--ease),background .4s var(--ease),transform .4s var(--ease)}
+.opt:hover:not(:disabled){border-color:var(--accent);transform:translateX(3px)}
+.opt:disabled{cursor:default}
+.opt.real{border-color:var(--accent);background:var(--accent-soft)}
+.opt.bad{border-color:var(--alert);background:var(--alert-bg)}
+
+/* breathe */
+.breath-card{align-items:center;text-align:center;padding-block:36px}
+.b-box{height:260px;display:grid;place-items:center}
+.b-orb{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 34% 30%,var(--orb1),var(--orb2) 72%);box-shadow:0 0 60px 10px var(--glow1);display:grid;place-items:center;font:italic 500 1rem var(--display);color:#0b1b1b;transition:transform 4s ease-in-out}
+.b-orb.in,.b-orb.hold{transform:scale(1.6)}
+.b-orb.out{transform:scale(1);transition-duration:6s}
+.ground{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px}
+.ground div{background:var(--accent-soft);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:4px}
+.ground b{font:500 2rem/1 var(--display);color:var(--accent)}
+
+/* learn */
+details{border-top:1px solid var(--line);padding:16px 0}
+details:first-of-type{border-top:0;padding-top:4px}
+summary{cursor:pointer;font:500 1.15rem var(--display);list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:300 1.6rem var(--body);color:var(--accent);transition:transform .4s var(--ease)}
+details[open] summary::after{transform:rotate(45deg)}
+details p,details ul{margin-top:10px;color:var(--muted)}
+details ul{padding-left:20px;display:flex;flex-direction:column;gap:4px}
+
+/* help */
+.help-card{border-color:var(--alert);background:var(--alert-bg)}
+.help-card h2,.help-card h3{color:var(--alert)}
+.lines{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.lines li{display:flex;flex-direction:column;gap:2px}
+.num{font-weight:700;white-space:nowrap}
+dialog{border:1.5px solid var(--alert);border-radius:24px;background:var(--surface);color:var(--ink);padding:24px;width:min(580px,calc(100vw - 32px));max-height:88vh;overflow:auto}
+dialog::backdrop{background:rgba(5,15,16,.55);backdrop-filter:blur(4px)}
+dialog form{margin-top:16px}
+footer{padding-block:72px 56px;color:var(--muted)}
+footer .wrap{display:flex;flex-direction:column;gap:12px;max-width:760px}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <button class="brand" type="button" data-go="top">Little Steps</button>
+    <nav class="links" aria-label="Sections">
+      <button type="button" data-go="garden">Garden</button>
+      <button type="button" data-go="thoughts">Thoughts</button>
+      <button type="button" data-go="breathe">Breathe</button>
+      <button type="button" data-go="learn">Learn</button>
+      <button type="button" data-go="help">Find help</button>
+    </nav>
+    <button class="btn alert sm" id="helpBtn" type="button">Need help now?</button>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="glow a"></div><div class="glow b"></div>
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <span class="eyebrow">A quiet place for heavy days</span>
+        <h1>Slow down. <em>One small step</em> is enough.</h1>
+        <p class="lead">Breathe, grow a little garden, and find real people who can help when things feel too heavy to carry alone.</p>
+        <div class="cta">
+          <button class="btn" type="button" data-go="garden">Start your garden</button>
+          <button class="btn line" type="button" data-go="breathe">Breathe with me</button>
+        </div>
+      </div>
+      <div class="orb-stage" aria-hidden="true">
+        <div class="orb-core">
+          <div class="ring r2" id="ring2"></div>
+          <div class="ring" id="ring1"></div>
+          <div class="orb" id="heroOrb"></div>
+        </div>
+        <div class="breath-label" id="heroLabel">Breathe</div>
+      </div>
+    </div>
+    <svg class="waves" viewBox="0 0 1440 130" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <path class="w1" d="M-60 60 C 200 10, 380 110, 640 62 S 1100 8, 1500 70 L1500 130 L-60 130 Z"/>
+      <path class="w2" d="M-60 84 C 240 40, 420 118, 700 84 S 1120 40, 1500 92 L1500 130 L-60 130 Z"/>
+      <path class="w3" d="M0 108 C 300 82, 520 126, 820 106 S 1220 86, 1440 110 L1440 130 L0 130 Z"/>
+    </svg>
+  </div>
+
+  <!-- GARDEN -->
+  <section class="sec" id="garden">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Gentle game</span>
+        <h2>Your <em>garden</em> grows with every small step</h2>
+        <p class="muted">Do something tiny in real life, tick it off, and a plant grows. There are no streaks to lose and nothing to fail. Little Steps is not a treatment for depression. It just makes small actions feel lighter.</p>
+      </div>
+      <div class="grid2">
+        <div class="stack">
+          <div class="card">
+            <div class="plots" id="plots" role="img" aria-label="Your garden"></div>
+            <div class="meter" aria-hidden="true"><i id="gbar"></i></div>
+            <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+              <p class="small muted" id="gmsg"></p>
+              <p class="small muted" id="gcount"></p>
+            </div>
+            <p class="toast" id="toast" role="status"></p>
+            <button class="btn line" id="newG" type="button" hidden>Plant a new garden</button>
+          </div>
+          <div class="card">
+            <h3>How are you right now?</h3>
+            <div class="moods" id="moods"></div>
+            <div class="note small" id="moodnote" hidden></div>
+            <div>
+              <p class="small muted" style="margin-bottom:8px">Your last check-ins. Saved only on this device.</p>
+              <div class="mbars" id="moodbars"></div>
+              <p class="small muted" id="moodempty">Nothing logged yet.</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div>
+            <h3>Today's small steps</h3>
+            <p class="small muted" style="margin-top:6px">Do any, in any order. One is plenty. Each has an easier version for heavy days, and the easier version counts the same.</p>
+          </div>
+          <div id="quests"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THOUGHTS -->
+  <section class="sec" id="thoughts">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Thought check</span>
+        <h2>Depression writes <em>harsh headlines</em></h2>
+        <p class="muted">For each thought, pick the response that is both kind and realistic. Right answers add a drop to your garden, up to three a day.</p>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <p class="thought" id="thought"></p>
+          <div class="opts" id="opts"></div>
+          <p id="fb" role="status"></p>
+          <button class="btn" id="next" type="button" hidden>Next thought</button>
+        </div>
+        <div class="note">
+          <h3 style="margin-bottom:8px">If the thoughts are about ending your life</h3>
+          <p>Skip the game and tap <strong>Need help now?</strong> at the top. You don't have to be sure it's serious enough to reach out. Talking to someone is the right move.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREATHE -->
+  <section class="sec" id="breathe">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Breathe</span>
+        <h2>Let the breath do <em>the slowing</em></h2>
+        <p class="muted">In for 4, hold for 4, out for 6. The longer breath out helps your body settle. Four rounds take about a minute.</p>
+      </div>
+      <div class="grid2">
+        <div class="card breath-card">
+          <div class="b-box"><div class="b-orb" id="orb" aria-live="polite">Ready</div></div>
+          <button class="btn" id="breathBtn" type="button">Begin</button>
+        </div>
+        <div class="card">
+          <div>
+            <h3>When your mind is racing</h3>
+            <p class="small muted" style="margin-top:6px">Try 5-4-3-2-1 grounding. Say each one out loud or in your head.</p>
+          </div>
+          <div class="ground">
+            <div><b>5</b><span class="small">things you can see</span></div>
+            <div><b>4</b><span class="small">things you can feel</span></div>
+            <div><b>3</b><span class="small">things you can hear</span></div>
+            <div><b>2</b><span class="small">things you can smell</span></div>
+            <div><b>1</b><span class="small">thing you can taste</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARN -->
+  <section class="sec" id="learn">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Understanding</span>
+        <h2>What is <em>actually</em> going on</h2>
+      </div>
+      <div class="card">
+        <details open>
+          <summary>Depression is an illness, not a weakness</summary>
+          <p>It changes how the brain handles mood, energy, sleep, and thinking. It is common, it is real, and it is treatable. Most people who get support, through talking therapy, medication, or both, feel meaningfully better over time.</p>
+        </details>
+        <details>
+          <summary>Signs it may be depression</summary>
+          <ul>
+            <li>Feeling sad, empty, or numb most days for two weeks or more</li>
+            <li>Losing interest in things you used to enjoy</li>
+            <li>Sleeping much more or much less than usual</li>
+            <li>Constant tiredness, or changes in appetite</li>
+            <li>Trouble concentrating, or feeling worthless or guilty</li>
+            <li>Thoughts of death or of not wanting to be here</li>
+          </ul>
+          <p class="small">Only a trained professional can diagnose depression. This list is not a test.</p>
+        </details>
+        <details>
+          <summary>Suicidal thoughts are more common than people think</summary>
+          <p>Many people have them at some point. Having them does not mean you are broken or that you will act on them. They often signal that the pain has grown bigger than your current ways of coping. They come in waves, and waves pass, especially with support.</p>
+        </details>
+        <details>
+          <summary>Depression tells convincing lies</summary>
+          <p>It says things like "nothing will ever change," "I'm a burden," or "no one cares." These feel like facts, but they are symptoms. Check them with someone you trust.</p>
+        </details>
+        <details>
+          <summary>Small things that help over time</summary>
+          <ul>
+            <li>Talk to a doctor, psychologist, or counsellor. This is the most effective step.</li>
+            <li>Tell one trusted person how you are really doing.</li>
+            <li>Keep a basic routine: wake up, eat, take any prescribed medicine, get some daylight.</li>
+            <li>Move a little, even a 10-minute walk.</li>
+            <li>Protect your sleep and go easy on alcohol.</li>
+            <li>Make the next task tiny. A glass of water counts.</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- HELP -->
+  <section class="sec" id="help">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Find help</span>
+        <h2>Real people are <em>ready</em> to listen</h2>
+      </div>
+      <div class="grid2">
+        <div class="card help-card">
+          <h3>Philippines, free and 24/7</h3>
+          <ul class="lines">
+            <li><strong>NCMH Crisis Hotline</strong><span><a class="num" href="tel:1553">1553</a> (Luzon-wide landline) &middot; <a class="num" href="tel:09178998727">0917-899-8727</a> &middot; <a class="num" href="tel:09663514518">0966-351-4518</a> (Globe/TM) &middot; <a class="num" href="tel:09086392672">0908-639-2672</a> (Smart/Sun/TNT) &middot; <a class="num" href="tel:029898727">(02) 989-8727</a></span></li>
+            <li><strong>Hopeline PH</strong><span><a class="num" href="tel:2919">2919</a> (toll-free for Globe/TM) &middot; <a class="num" href="tel:0288044673">(02) 8804-4673</a> &middot; <a class="num" href="tel:09175584673">0917-558-4673</a></span></li>
+            <li><strong>In Touch Crisis Line</strong><span><span class="num">+63 2 8893 7603</span> &middot; <span class="num">+63 917 800 1123</span></span></li>
+            <li><strong>Emergency</strong><span><span class="num">911</span></span></li>
+          </ul>
+          <p class="small muted">Numbers can change and coverage varies by network. If one doesn't connect, try the next.</p>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <h3>Elsewhere</h3>
+            <p><strong>United States:</strong> call or text <span class="num">988</span>.</p>
+            <p><a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a> lists free, confidential lines by country. In immediate danger anywhere, call your local emergency number.</p>
+          </div>
+          <div class="card">
+            <h3>If you're supporting someone</h3>
+            <ul class="lines" style="gap:8px">
+              <li>Ask directly: "Are you thinking about suicide?" Asking does not plant the idea.</li>
+              <li>Listen without judging or rushing to fix. Stay with them.</li>
+              <li>Help them secure anything they could use to hurt themselves.</li>
+              <li>Help them reach a crisis line or professional, and call emergency services if the danger is immediate.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h3>Little Steps</h3>
+    <p class="small">This site offers general information and encouragement. It is not medical advice, a diagnosis, or a substitute for professional care or emergency services. If you are in danger, call your local emergency number now.</p>
+    <p class="small">Your garden, check-ins, and answers are stored only in this browser, on this device.</p>
+  </div>
+</footer>
+
+<dialog id="help-dialog" aria-labelledby="hd-title">
+  <h2 id="hd-title" style="color:var(--alert);font-size:1.5rem">If you might act on thoughts of ending your life</h2>
+  <p style="margin:10px 0 14px">Reach out to someone now. Call your local emergency number (<span class="num">911</span> in the Philippines). If someone is with you, tell them. If you can, move away from anything you could use to hurt yourself.</p>
+  <h3 style="margin-bottom:8px">Philippines, free and 24/7</h3>
+  <ul class="lines">
+    <li><strong>NCMH Crisis Hotline</strong><span><a class="num" href="tel:1553">1553</a> &middot; <a class="num" href="tel:09178998727">0917-899-8727</a> &middot; <a class="num" href="tel:09663514518">0966-351-4518</a> &middot; <a class="num" href="tel:09086392672">0908-639-2672</a> &middot; <a class="num" href="tel:029898727">(02) 989-8727</a></span></li>
+    <li><strong>Hopeline PH</strong><span><a class="num" href="tel:2919">2919</a> &middot; <a class="num" href="tel:0288044673">(02) 8804-4673</a> &middot; <a class="num" href="tel:09175584673">0917-558-4673</a></span></li>
+    <li><strong>In Touch Crisis Line</strong><span><span class="num">+63 2 8893 7603</span> &middot; <span class="num">+63 917 800 1123</span></span></li>
+  </ul>
+  <p class="small muted" style="margin-top:12px">Elsewhere: US call or text <span class="num">988</span>. Other countries at <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a>.</p>
+  <form method="dialog"><button class="btn line" type="submit">Close</button></form>
+</dialog>
+
+<script>
+(function(){
+  var KEY='littleSteps1',MAXP=27;
+  function el(id){return document.getElementById(id)}
+  function load(){try{var s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return {}}
+  var S=load();
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+  S.points=S.points||0;S.gardens=S.gardens||0;S.mood=S.mood||[];S.days=S.days||{};S.cardIdx=S.cardIdx||0;
+  function today(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+  function day(){var t=today();if(!S.days[t])S.days[t]={done:{},thoughts:0};return S.days[t]}
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- smooth navigation ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-go]'),function(b){
+    b.addEventListener('click',function(){
+      var t=el(b.getAttribute('data-go'));
+      if(t)t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    });
+  });
+
+  /* ---------- help dialog ---------- */
+  var dlg=el('help-dialog');
+  function openHelp(){if(dlg.showModal){dlg.showModal()}else{dlg.setAttribute('open','')}}
+  el('helpBtn').addEventListener('click',openHelp);
+
+  /* ---------- hero breathing (exact sync via Web Animations) ---------- */
+  var heroOrb=el('heroOrb'),r1=el('ring1'),r2=el('ring2'),hl=el('heroLabel');
+  if(!reduce&&heroOrb.animate){
+    var kf=[{transform:'scale(1)'},{transform:'scale(1.3)',offset:.4},{transform:'scale(1)'}];
+    var op={duration:10000,iterations:Infinity,easing:'ease-in-out'};
+    var a0=heroOrb.animate(kf,op);
+    r1.animate([{transform:'scale(1)',opacity:.3},{transform:'scale(1.28)',opacity:.12,offset:.4},{transform:'scale(1)',opacity:.3}],op);
+    r2.animate([{transform:'scale(1)',opacity:.18},{transform:'scale(1.22)',opacity:.06,offset:.4},{transform:'scale(1)',opacity:.18}],op);
+    var last='';
+    (function tick(){
+      var t=(a0.currentTime||0)%10000,w=t<4000?'Breathe in':'Breathe out';
+      if(w!==last){hl.textContent=w;last=w}
+      requestAnimationFrame(tick);
+    })();
+  }
+
+  /* ---------- garden ---------- */
+  function plant(s){
+    if(!s)return '';
+    var h='<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">';
+    if(s===1){
+      h+='<path class="stem" d="M24 44 V33"/><ellipse class="leaf" cx="19" cy="31" rx="6" ry="3.5" transform="rotate(-25 19 31)"/><ellipse class="leaf" cx="29" cy="30" rx="6" ry="3.5" transform="rotate(25 29 30)"/>';
+    }else{
+      h+='<path class="stem" d="M24 44 V22"/><ellipse class="leaf" cx="17" cy="35" rx="7" ry="3.8" transform="rotate(-30 17 35)"/><ellipse class="leaf" cx="31" cy="31" rx="7" ry="3.8" transform="rotate(30 31 31)"/>';
+      if(s===2){h+='<ellipse class="leaf" cx="24" cy="18" rx="4" ry="6.5"/>'}
+      else{
+        h+='<circle class="petal" cx="24" cy="9" r="4.6"/><circle class="petal" cx="29.7" cy="13.2" r="4.6"/><circle class="petal" cx="27.5" cy="19.9" r="4.6"/><circle class="petal" cx="20.5" cy="19.9" r="4.6"/><circle class="petal" cx="18.3" cy="13.2" r="4.6"/><circle class="core" cx="24" cy="15" r="3.6"/>';
+      }
+    }
+    return h+'</svg>';
+  }
+  function stageFor(k,p){var s=p-k*3;return s<0?0:(s>3?3:s)}
+  var prev=null;
+  function renderGarden(){
+    var g=el('plots');g.innerHTML='';var cur=[];
+    for(var k=0;k<9;k++){
+      var s=stageFor(k,S.points),d=document.createElement('div');
+      cur.push(s);
+      d.className='plot'+((prev&&prev[k]!==s&&s>0)?' grow':'');
+      d.innerHTML=plant(s);g.appendChild(d);
+    }
+    prev=cur;
+    el('gbar').style.width=(S.points/MAXP*100)+'%';
+    el('gmsg').textContent=S.points>=MAXP?'Your garden is in full bloom.':(S.points+' of '+MAXP+' drops');
+    el('gcount').textContent=S.gardens>0?('Gardens bloomed: '+S.gardens):'';
+    el('newG').hidden=S.points<MAXP;
+  }
+  var toastT=null;
+  function toast(m){
+    el('toast').textContent=m;clearTimeout(toastT);
+    toastT=setTimeout(function(){el('toast').textContent=''},3500);
+  }
+  function addPoint(m){
+    if(S.points<MAXP){S.points++;if(S.points===MAXP){S.gardens++;m='Full bloom. You did that, one small step at a time.'}}
+    toast(m);save();renderGarden();
+  }
+  el('newG').addEventListener('click',function(){S.points=0;prev=null;save();renderGarden();toast('A fresh patch of soil is ready.')});
+
+  /* ---------- quests ---------- */
+  var QUESTS=[
+    {id:'water',t:'Drink a glass of water',tiny:'Take a few sips'},
+    {id:'light',t:'Get daylight or fresh air for 5 minutes',tiny:'Stand by an open window for 1 minute'},
+    {id:'move',t:'Move your body for 10 minutes',tiny:'Stand up and stretch for 1 minute'},
+    {id:'eat',t:'Eat something with some substance',tiny:'A few bites of anything'},
+    {id:'person',t:'Message or talk to someone you trust',tiny:'Send one emoji or a "hey" to a friend'},
+    {id:'wash',t:'Shower or wash up',tiny:'Wash your face'},
+    {id:'tidy',t:'Tidy one small spot',tiny:'Put away a single thing'},
+    {id:'good',t:'Notice one thing that went okay today',tiny:'Just think of it, no writing needed'}
+  ];
+  function renderQuests(){
+    var box=el('quests');box.innerHTML='';var dn=day().done;
+    QUESTS.forEach(function(q){
+      var row=document.createElement('div');row.className='quest'+(dn[q.id]?' done':'');
+      var b=document.createElement('button');b.type='button';b.className='check';
+      b.textContent=dn[q.id]?'✓':'';
+      b.setAttribute('aria-pressed',dn[q.id]?'true':'false');
+      b.setAttribute('aria-label',q.t+(dn[q.id]?' (done)':''));
+      b.addEventListener('click',function(){
+        if(dn[q.id])return;dn[q.id]=true;addPoint('Nice. One drop for the garden.');renderQuests();
+      });
+      var tx=document.createElement('div');tx.style.minWidth='0';
+      var a=document.createElement('div');a.className='qt';a.textContent=q.t;
+      var c=document.createElement('div');c.className='small muted';c.textContent='Easier: '+q.tiny;
+      tx.appendChild(a);tx.appendChild(c);row.appendChild(b);row.appendChild(tx);box.appendChild(row);
+    });
+  }
+
+  /* ---------- mood ---------- */
+  var MOODS=['Awful','Low','Okay','Good','Great'];
+  function renderMoodBtns(){
+    var m=el('moods');m.innerHTML='';
+    MOODS.forEach(function(name,i){
+      var b=document.createElement('button');b.type='button';b.textContent=name;
+      b.addEventListener('click',function(){
+        S.mood.push({d:today(),v:i+1});S.mood=S.mood.slice(-30);save();renderMood();
+        var n=el('moodnote');
+        if(i<=1){
+          n.hidden=false;
+          n.textContent='Low days happen, and logging them is useful. If you have felt like this for two weeks or more, consider telling a doctor or counsellor. If you are having thoughts of ending your life, please reach out now.';
+          var hb=document.createElement('button');hb.type='button';hb.className='btn alert sm';hb.style.marginTop='12px';hb.style.display='block';hb.textContent='Show crisis lines';
+          hb.addEventListener('click',openHelp);n.appendChild(hb);
+        }else{n.hidden=true;toast('Logged. Thanks for checking in.')}
+      });
+      m.appendChild(b);
+    });
+  }
+  function renderMood(){
+    var last=S.mood.slice(-7),w=el('moodbars');w.innerHTML='';
+    last.forEach(function(m){
+      var c=document.createElement('div');c.className='mbar';
+      var i=document.createElement('i');i.style.height=(m.v*17)+'%';i.setAttribute('title',MOODS[m.v-1]);
+      var l=document.createElement('span');l.textContent=m.d.split('-').slice(1).join('/');
+      c.appendChild(i);c.appendChild(l);w.appendChild(c);
+    });
+    el('moodempty').hidden=last.length>0;
+    w.hidden=last.length===0;
+  }
+
+  /* ---------- thought check ---------- */
+  var CARDS=[
+    {th:'I’m such a failure. I couldn’t even get out of bed today.',
+     o:[['You’re right. You’re hopeless.','harsh'],['I’m totally fine. I just need to think positive.','fake'],['Depression makes basic things very hard. One tiny step still counts.','real']]},
+    {th:'I’m a burden to everyone around me.',
+     o:[['Yes, so keep it to yourself.','harsh'],['I’m never a burden and nothing is wrong.','fake'],['That feeling is part of depression. People who care would want to know how I’m doing.','real']]},
+    {th:'Things will never get better.',
+     o:[['Correct. Why bother trying?','harsh'],['Everything will be perfect soon!','fake'],['It feels that way right now, but feelings aren’t forecasts. Things can shift with support.','real']]},
+    {th:'I embarrassed myself in that conversation. Everyone thinks I’m weird.',
+     o:[['Everyone is definitely judging you.','harsh'],['Nobody noticed anything, ever.','fake'],['I can’t read minds. One awkward moment doesn’t define how people see me.','real']]},
+    {th:'I’ve lost interest in everything I used to love.',
+     o:[['That’s who you are now.','harsh'],['Just force yourself to be excited.','fake'],['Losing interest is a symptom of depression, not a permanent change in me.','real']]},
+    {th:'I should be over this by now.',
+     o:[['You’re weak for still struggling.','harsh'],['Just snap out of it.','fake'],['Healing has no deadline. Going step by step is okay.','real']]}
+  ];
+  var FB={harsh:'That one piles on. Depression often turns a hard moment into a verdict about you.',
+          fake:'That one skips over the pain. Forced positivity usually does not stick.',
+          real:'Yes. It admits things are hard without judging you.'};
+  var answered=false;
+  function renderCard(){
+    var c=CARDS[S.cardIdx%CARDS.length];
+    el('thought').textContent='“'+c.th+'”';
+    var o=el('opts');o.innerHTML='';
+    var opts=c.o.slice().sort(function(){return Math.random()-.5});
+    opts.forEach(function(x){
+      var b=document.createElement('button');b.type='button';b.className='opt';b.textContent=x[0];b.setAttribute('data-t',x[1]);
+      b.addEventListener('click',function(){choose(b,x[1])});o.appendChild(b);
+    });
+    el('fb').textContent='';el('next').hidden=true;answered=false;
+  }
+  function choose(btn,type){
+    if(answered)return;answered=true;
+    Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){
+      b.disabled=true;if(b.getAttribute('data-t')==='real')b.classList.add('real');
+    });
+    if(type!=='real')btn.classList.add('bad');
+    var msg=FB[type];
+    if(type==='real'){
+      var d=day();
+      if(d.thoughts<3){d.thoughts++;msg+=' One drop added to your garden.';addPoint('Thought check: one drop for the garden.')}
+    }else{msg+=' The highlighted one is kinder and more realistic.'}
+    el('fb').textContent=msg;el('next').hidden=false;
+  }
+  el('next').addEventListener('click',function(){S.cardIdx++;save();renderCard()});
+
+  /* ---------- guided breathing ---------- */
+  var orb=el('orb'),bb=el('breathBtn'),timers=[],running=false;
+  function stopBreath(){timers.forEach(clearTimeout);timers=[];running=false;orb.className='b-orb';orb.textContent='Ready';bb.textContent='Begin'}
+  function round(n){
+    if(n>=4){stopBreath();orb.textContent='Well done';return}
+    orb.className='b-orb in';orb.textContent='In';
+    timers.push(setTimeout(function(){orb.className='b-orb hold';orb.textContent='Hold'},4000));
+    timers.push(setTimeout(function(){orb.className='b-orb out';orb.textContent='Out'},8000));
+    timers.push(setTimeout(function(){round(n+1)},14000));
+  }
+  bb.addEventListener('click',function(){
+    if(running){stopBreath();return}
+    running=true;bb.textContent='Stop';round(0);
+  });
+
+  renderGarden();renderQuests();renderMoodBtns();renderMood();renderCard();
+})();
+</script>
+
+</body>
+</html>
